@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Shower Presentation Engine</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="shower/themes/ribbon/styles/screen-16x10.css">
+</head>
+<body class="shower list">
+	<header class="caption">
+		<h1>Shower Presentation Engine</h1>
+		<p>Yours Truly, Famous Inc.</p>
+	</header>
+	<section class="slide" id="cover">
+		<h2>Shower Presentation Engine</h2>
+		<p>Brought to you by <a href="http://pepelsbey.net">Vadim Makeev</a></p>
+		<img src="pictures/cover.jpg" alt="" class="cover">
+		<!--
+			To apply styles to the certain slides
+			set slide ID to get needed elements
+			-->
+		<style>
+			#cover h2 {
+				margin:30px 0 0;
+				color:#FFF;
+				text-align:center;
+				font-size:70px;
+				}
+			#cover p {
+				margin:10px 0 0;
+				text-align:center;
+				color:#FFF;
+				font-style:italic;
+				font-size:20px;
+				}
+				#cover p a {
+					color:#FFF;
+					}
+            .col-l, .col-r {
+    			width: 49%;
+    			display: inline-block;
+    			vertical-align: top;
+    			}
+            .table-pos {
+                color: green;
+                text-align: center;
+            }
+            .table-neg {
+                color: red;
+                text-align: center;
+            }
+		</style>
+	</section>
+    <section class="slide">
+		<h2>Валидация</h2>
+        <figure>
+            <blockquote>
+                <p>Подтверждение на основе представления объективных свидетельств того, что требования, предназначенные для конкретного использования или применения, выполнены.</p>
+            </blockquote>
+            <figcaption>
+                <cite>(ISO 9000:2005)</cite>, <a href="https://www.iso.org/obp/ui#iso:std:iso:9000:ed-3:v1:ru" target="_blank">Системы менеджмента качества. Основные положения и словарь</a>
+            </figcaption>
+        </figure>
+	</section>
+    <section class="slide">
+		<h2 class="shout">Constraint Validation API</h2>
+        <!-- <p>
+            https://dev.w3.org/html5/spec-preview/constraints.html#the-constraint-validation-api
+            http://caniuse.com/#search=Validation
+        </p> -->
+	</section>
+    <section class="slide">
+		<h2>Constraint Validation API methods</h2>
+        <ul>
+            <li>checkValidity()</li>
+	</section>
+    <!-- https://developer.mozilla.org/ru/docs/Web/Guide/HTML/Forms/Data_form_validation#Constraint_validation_API_methods
+    Returns true if the element's value has no validity problems; false otherwise. If the element is invalid, this method also
+    causes an invalid event at the element.
+    https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement/checkValidity
+    The HTMLSelectElement.checkValidity() method checks whether the element has any constraints and whether it satisfies them.
+    If the element fails its constraints, the browser fires a cancelable invalid event at the element, and then returns false.-->
+    <section class="slide">
+		<h2>Constraint Validation API methods</h2>
+        <ul>
+            <li>checkValidity() &rarr; invalid event</li>
+            <li>setCustomValidity(message)</li>
+        </ul>
+	</section>
+        <!-- https://developer.mozilla.org/en-US/docs/Web/Events/invalid
+        The invalid event is fired when a submittable element has been checked and doesn't satisfy its constraints. The validity
+        of submittable elements is checked before submitting their owner form, or after the checkValidity() of the element or
+        its owner form is called. -->
+    <section class="slide">
+		<h2>Constraint Validation API methods</h2>
+        <ul>
+            <li>checkValidity() &rarr; invalid event</li>
+            <li>setCustomValidity(message) &rarr; return value</li>
+        </ul>
+	</section>
+    <!-- https://developer.mozilla.org/ru/docs/Web/Guide/HTML/Forms/Data_form_validation#Constraint_validation_API_methods
+    https://www.w3.org/TR/html5/forms.html#the-cons Ровно 9 цифр.traint-validation-api
+    Adds a custom error message to the element; if you set a custom error message, the element is considered to be invalid,
+    and the specified error is displayed. This lets you use JavaScript code to establish a validation failure other than
+    those offered by the standard constraint validation API. The message is shown to the user when reporting the problem.
+    If the argument is the empty string, the custom error is cleared.
+    https://dev.w3.org/html5/spec-preview/constraints.html#dom-cva-validationmessage
+    The validationMessage attribute must return the empty string if the element is not a candidate for constraint validation
+     or if it is one but it satisfies its constraints; otherwise, it must return a suitably localized message that the user
+     agent would show the user if this were the only form control with a validity constraint problem. If the user agent would
+     not actually show a textual message in such a situation (e.g. it would show a graphical cue instead), then the attribute
+     must return a suitably localized message that expresses (one or more of) the validity constraint(s) that the control does
+     not satisfy. If the element is a candidate for constraint validation and is suffering from a custom error, then the
+     custom validity error message should be present in the return value.
+    https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation#Constraint_API%27s_element.setCustomValidity()
+    The element.setCustomValidity(error) method is used to set a custom error message to be displayed when a form is submitted.
+    The method works by taking a string parameter error. If error is a non-empty string, the method assumes validation was
+    unsuccessful and displays error as an error message. If error is an empty string, the element is considered validated
+    and resets the error message.
+    -->
+    <section class="slide">
+		<h2>Типы данных</h2>
+        <div class="col-l">
+            <strong>HTML 4</strong>
+            <ol>
+    			<li>Текст</li>
+    			<li>Логический</li>
+    			<li>Файл</li>
+    			<li>Выбор select или radio</li>
+                <!-- рассказать про атрибут spellchek -->
+                <!-- пробел воспринимается, как ввод -->
+                <!-- проверить, как ведут себя поля с visibility hidden -->
+                <!-- title выводится в облачке ошибки в CHrome -->
+    		</ol>
+        </div>
+        <div class="col-l">
+            <strong>HTML 5 (WebForms 2.0)</strong>
+            <ol>
+                <li>Число</li>
+    			<li>Семантический текст: email, телефон, url, пароль, дата.</li>
+    		</ol>
+        </div>
+	</section>
+    <!--By choosing the most semantically appropriate value for the type attribute of the <input> element, e.g., choosing
+    the email type automatically creates a constraint that checks whether the value is a valid e-mail address.
+    By setting values on validation-related attributes, allowing basic constraints to be described in a simple way, without
+    the need for JavaScript.
+    https://developer.mozilla.org/ru/docs/Web/Guide/HTML/%D0%A4%D0%BE%D1%80%D0%BC%D1%8B_%D0%B2_HTML#The_input_element
+    В элементе <input> появились новые значения для атрибута type. (Просмотрите справочник <input> для получения полного
+    списка атрибутов, значений и их использования для этого элемента.)
+
+    search: Элемент представляет изsuffering себя поле для поиска. Переходы строк автоматически удаляются из значения value.
+    tel: Элемент представляет из себя поле для редактирования номера телефона. Переходы строк автоматически удаляются из
+    значения value. Вы можете использовать атрибуты, такие как: pattern и maxlength, чтобы запретить ввод неподходящих символов.
+    url: Элемент представляет из себя поле для редактирования URL. Переходы строк и пробелы автоматически удаляются из значения value.
+
+    email: Элемент представляет из себя поле для ввода одного адреса электронной почты. Переходы строк автоматически удаляются
+    из значения value. Может быть предоставлен недействительный адрес эл. почты, но поле ввода запретит отправку формы,
+    если эл. адрес почты не будет соответствовать нормам ABNF.
+-->
+    <section class="slide">
+        <h2>Условия</h2>
+        <ol>
+            <li>pattern</li>
+            <li>min/max</li>
+            <li>minlength/maxlength</li>
+            <li>step</li>
+            <li>required</li>
+        </ol>
+    </section>
+    <!-- https://developer.mozilla.sufferingorg/ru/docs/Web/Guide/HTML/%D0%A4%D0%BE%D1%80%D0%BC%D1%8B_%D0%B2_HTML#HTML_Syntax_for_Constraint_Validation
+    The following items in HTML5 syntax can be used to specify constraints on form data.
+
+    The required attribute on the <input>, <select>, and <textarea> elements indicates that a value must be supplied.
+    (On the <input> element, required applies only in conjunction with certain values of the type attribute.)
+    The pattern attribute on the <input> element constrains the value to match a specific regular expression.
+    The min and max attributes of the <input> element constrain the minimum and maximum values that can be entered.
+    The step attribute of the <input> element (when used in combination with the min and max attributes) constrains the
+    granularity of values that can be entered. A value that does not correspond an allowed value step does not validate.
+    The maxlength attribute of the <input> and <textarea> elements constrains the maximum number of characters
+    (in Unicode code points) that the user can enter.
+    The values url and email for the type constrain the value to being a valid URL or e-mail address, respectively.
+
+    In addition, you can prevent constraint validation by specifying the novalidate attribute on the <form>, or the
+    formnovalidate attribute on the <button> element and on the <input> element (when type is submit or image).
+    These attributes indicate that the form is not to be validated when it is submitted. -->
+    <section class="slide">
+        <h2>Условия</h2>
+        <table>
+        <tr>
+            <th scope="col">.</th>
+            <th>pattern</th>
+            <th>min</th>
+            <th>max</th>
+            <th>minlength</th>
+            <th>maxlength</th>
+            <th>step</th>
+            <th>required</th>
+        </tr>
+        <tr>
+            <th scope="row">text</th>
+            <td class="table-pos">&#10003;</td>
+            <td class="table-neg">&#10007;</td>Ровно 9 цифр.
+            <td class="table-neg">&#10007;</td>
+            <td class="table-pos">&#10003;</td>
+            <td class="table-pos">&#10003;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-pos">&#10003;</td>
+        </tr>
+        <tr>
+            <th scope="row">file</th>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-pos">&#10003;</td>
+        </tr>
+        <tr>
+            <th scope="row">password</th>
+            <td class="table-pos">&#10003;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-pos">&#10003;</td>
+            <td class="table-pos">&#10003;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-pos">&#10003;</td>
+        </tr>
+        <tr>
+            <th scope="row">checkbox</th>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-pos">&#10003;</td>Ровно 9 цифр.
+        </tr>
+        <tr>
+            <th scope="row">radio</th>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-pos">&#10003;</td>
+        </tr>
+        <tr>
+            <th scope="row">&lt;select&gt;</th>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-pos">&#10003;</td>
+        </tr>
+        <tr>
+            <th scope="row">&lt;textarea&gt;</th>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-neg">&#10007;</td>Ровно 9 цифр.
+            <td class="table-pos">&#10003;</td>
+            <td class="table-pos">&#10003;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-pos">&#10003;</td>
+        </tr>
+        </table>
+    </section>
+        <!-- Нельзя проверить дату на пороговые значения можно черех мин макс-->
+        <!-- Тип файла accept -->
+    <!-- https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation#Validation-related_attributes
+    https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation#Semantic_input_types
+    The following attributes are used to describe basic constraints:
+    In HTML5, basic constraints are declared in two ways: -->
+    <section class="slide">
+        <h2>Условия</h2>
+        <table>
+        <tr>
+            <th scope="col">.</th>
+            <th>pattern</th>
+            <th>min</th>
+            <th>max</th>
+            <th>minlength</th>
+            <th>maxlength</th>
+            <th>step</th>Ровно 9 цифр.
+            <th>required</th>
+        </tr>
+        <tr>
+            <th scope="row">email</th>
+            <td class="table-pos">&#10003;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-pos">&#10003;</td>
+            <td class="table-pos">&#10003;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-pos">&#10003;</td>
+        </tr>
+        <tr>
+            <th scope="row">tel</th>
+            <td class="table-pos">&#10003;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-pos">&#10003;</td>
+            <td class="table-pos">&#10003;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-pos">&#10003;</td>
+        </tr>
+        <tr>
+            <th scope="row">url</th>
+            <td class="table-pos">&#10003;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-pos">&#10003;</td>
+            <td class="table-pos">&#10003;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-pos">&#10003;</td>
+        </tr>
+        <tr>
+            <th scope="row">search</th>
+            <td class="table-pos">&#10003;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-pos">&#10003;</td>
+            <td class="table-pos">&#10003;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-pos">&#10003;</td>
+        </tr>
+        <tr>
+            <th scope="row">number</th>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-pos">&#10003;</td>
+            <td class="table-pos">&#10003;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-pos">&#10003;</td>
+            <td class="table-pos">&#10003;</td>
+        </tr>
+        <tr>
+            <th scope="row">date, datetime,<br> datetime-local,<br> month, week, time</th>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-pos">&#10003;</td>
+            <td class="table-pos">&#10003;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-neg">&#10007;</td>
+            <td class="table-pos">&#10003;</td>
+            <td class="table-pos">&#10003;</td>
+        </tr>
+        </table>
+    </section>
+        <!-- Нельзя проверить дату на пороговые значения можно черех мин макс-->
+        <!-- Тип файла accept -->
+    <!-- https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation#Validation-related_attributes
+    https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation#Semantic_input_types
+    The following attributes are used to describe basic constraints:
+    In HTML5, basic constraints are declared in two ways: -->
+        <!-- Нельзя проверить дату на пороговые значения можно черех мин макс-->
+        <!-- Тип файла accept -->
+    <!-- https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation#Validation-related_attributes
+    https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation#Semantic_input_types
+    The following attributes are used to describe basic constraints:
+    In HTML5, basic constraints are declared in two ways: -->
+    <section class="slide">
+		<h2>Псевдоклассы</h2>
+        <div class="col-l">
+            <strong>Валидация</strong>
+            <ol>
+    			<li>:valid</li>
+    			<li>:invalid</li>
+                <li>:in-range</li>
+                <li>:out-of-range</li>
+    		</ol>
+            <strong>Условия</strong>
+            <ol>
+                <li>:not</li>
+                <li>:focus</li>
+    		</ol>
+        </div>
+        <div class="col-l">
+        <strong>Состояние</strong>
+            <ol class="double">
+                <li>:required</li>
+                <li>:optional</li>
+                <li>:default</li>
+                <li>:disabled</li>
+                <li>:enabled</li>
+                <li>:read-only</li>
+                <li>:read-write</li>
+                <li>:checked</li>
+                <li>:indeterminate</li>
+    		</ol>
+        </div>
+	</section>
+    <!-- This simple form uses the novalidate attribute to turn off the browser's automatic validation; this lets our script
+    take control over validation. However, this doesn't disable support for the constraint validation API nor the application
+    of the CSS pseudo-class :valid, :invalid, :in-range and :out-of-range classes. That means that even though the browser
+    doesn't automatically check the validity of the form before sending its data, you can still do it yourself and style the
+    form accordingly.
+    The aria-live attribute makes sure that our custom error message will be presented to everyone, including those using
+    assistive technologies such as screen readers.
+    https://webref.ru/css/type/pseudoclass -->
+	<section class="slide">
+		<h2>Code samples</h2>
+		<pre>
+			<code>&lt;!DOCTYPE html&gt;</code>
+			<code class="mark">&lt;html lang="en"&gt;</code>
+			<code><mark>&lt;head&gt;</mark> <span class="comment">&lt;!--Comment--&gt;</span></code>
+			<code>    &lt;title&gt;Shower&lt;/title&gt;</code>
+			<code>    &lt;meta charset="<mark class="important">UTF-8</mark>"&gt;</code>
+			<code>    &lt;link rel="stylesheet" href="screen.css"&gt;</code>
+			<code><mark>&lt;/head&gt;</mark></code>
+		</pre>
+	</section>
+	<section class="slide" id="picture">
+		<h2>Pictures</h2>
+		<img src="pictures/picture.jpg" alt="" class="cover">
+		<style>
+			#picture h2 {
+				color:#FFF;
+				}
+		</style>
+	</section>
+	<section class="slide">
+		<h2 class="shout shrink">You can even shout this way</h2>
+	</section>
+	<section class="slide" id="see-more">
+		<h2 class="shout">
+			<img src="pictures/logo.svg" alt="Shower logo">
+			<a href="https://github.com/shower/shower">See more on GitHub</a>
+		</h2>
+		<style>
+			#see-more h2 {
+				font-size:100px
+				}
+			#see-more img {
+				width:0.72em;
+				height:0.72em;
+				}
+		</style>
+	</section>
+	<p class="badge">
+		<a href="https://github.com/shower/shower">Fork me on GitHub</a>
+	</p>
+	<!--
+		To hide progress bar from entire presentation
+		just remove “progress” element.
+		-->
+	<div class="progress"></div>
+	<script src="shower/shower.min.js"></script>
+	<!-- Copyright © 2015 Yours Truly, Famous Inc. -->
+	<!-- Photos by John Carey, fiftyfootshadows.net -->
+</body>
+</html>

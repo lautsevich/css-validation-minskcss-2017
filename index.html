@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Shower Presentation Engine</title>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="shower/themes/ribbon/styles/screen-16x10.css">
+</head>
+<body class="shower list">
+    <header class="caption">
+        <h1>Shower Presentation Engine</h1>
+        <p>Yours Truly, Famous Inc.</p>
+    </header>
+    <section class="slide white" id="cover">
+        <h2>Валидация веб-форм.<br> Часть I. CSS</h2>
+        <p><a href="https://twitter.com/zigzag_mcquack">Павел Ловцевич</a>, <a href="http://lovata.com">LOVATA</a></p>
+        <img src="pictures/stickers.jpg" alt="" class="cover" style="position: relative; top: 300px;">
+        <style>
+            #cover {
+                padding-top: 100px;
+            }
+            #cover h2 {
+                margin: 0;
+                text-align:center;
+                font-size:70px;
+                color: #000;
+                }
+            #cover p {
+                margin:10px 0 0;
+                text-align:center;
+                color:#FFF;
+                font-style:italic;
+                font-size:20px;
+                color: #000;
+                }
+                #cover p a {
+                    color: #000;
+                    }
+            .col-l, .col-r {
+                width: 49%;
+                display: inline-block;
+                vertical-align: top;
+                }
+            .col-l_65 {
+                width: 65%;
+            }
+            .col-r_35 {
+                width: 34%;
+            }
+            .table-pos {
+                color: green;
+                text-align: center;
+            }
+            .table-neg {
+                color: red;
+                text-align: center;
+            }
+        </style>
+    </section>
+
+    <section class="slide black me">
+        <style>
+            .me h2, .me p, .me a {
+                color: #ffffff;
+            }
+        </style>
+		<img src="pictures/avatar.jpg" class="cover" alt="Павел Ловцевич">
+		<h2>Павел Ловцевич</h2>
+		<p>
+			CTO @ <a href="http://lovata.com" target="_blank">LOVATA</a> &amp; <a href="http://2doc.by" target="_blank">2doc</a><br>
+			<a href="https://twitter.com/zigzag_mcquack" target="_blank">@zigzag_mcquack</a><br>
+			<a href="mailto:p.lovtsevich@lovata.com">p.lovtsevich@lovata.com</a>
+		</p>
+		<footer class="footer">
+			<ul>
+				<li>Родился и вырос в Минске.</li>
+				<li>В отрасли с 2002 года.</li>
+				<li>Старожил сообщества "Веб-стандарты".</li>
+				<li>Крестный отец и локальный организатор конференции "Web Standards Days".</li>
+				<li>В 2008 с партнерами основал компанию LOVATA.</li>
+			</ul>
+		</footer>
+	</section>
+
+	<section class="slide white">
+		<img src="pictures/lovata.svg" class="cover" alt="LOVATA">
+		<footer class="footer">
+			<ul>
+				<li>2008 год — веб-студия.</li>
+				<li>2014 год — поставщик программных решений.</li>
+				<li>Рынки — РБ, РФ, Казахстан, США, Канада, Великобритания, Израиль, Швеция.</li>
+				<li>Специализация — E-commerce, MedTech, Sharing economy.</li>
+				<li>Стек — PHP (Laravel), Node.js.</li>
+				<li>Актуальные сферы интересов — PWA и IoT.</li>
+			</ul>
+		</footer>
+	</section>
+
+    <section class="slide white">
+		<img src="pictures/2doc.svg" class="cover" alt="2doc">
+		<footer class="footer">
+			<ul>
+				<li></li>
+			</ul>
+		</footer>
+	</section>
+
+    <section class="slide">
+        <h2>Валидация</h2>
+        <figure>
+            <blockquote>
+                <p>Подтверждение на основе представления объективных свидетельств того, что требования, предназначенные для конкретного использования или применения, выполнены.</p>
+            </blockquote>
+            <figcaption>
+                <cite>(ISO 9000:2005)</cite>, <a href="https://www.iso.org/obp/ui#iso:std:iso:9000:ed-3:v1:ru" target="_blank">Системы менеджмента качества. Основные положения и словарь</a>
+            </figcaption>
+        </figure>
+        <footer class="footer">
+            <ul>
+                <li>Один из самых ответственных и сложных этапов создания UI — веб-формы.</li>
+                <li>Получение, обработка пользовательских данных и обратная связь по ним — критическая составляющая успешного опыта взаимодействия пользователя (UX) с интерфейсом (UI), которая прямым образом влияет на успешность проекта.</li>
+                <li>Разумные ограничения валидации на стороне клиента — улучшение UX.</li>
+                <li>Валидация на стороне сервера — безопасность.</li>
+                <!-- https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation#What_is_form_validation -->
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide white">
+        <h2 class="shout">Constraint Validation API</h2>
+        <footer class="footer">
+            <ul>
+                <li>До HTML5 проверка форм — умножение в столбик (простыни на JS). Сложные, подверженные ошибкам, сценарии.</li>
+                <li>После работа с калькулятором.</li>
+                <li>Специальное API — проверка браузером. На входе условия, на выходе ответ.</li>
+                <li>Все поля в любой момент в runtime провалидированы.</li>
+                <li>Без JavaScript.</li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide can-i-use-bg">
+        <style>
+            .can-i-use-bg {
+                background-color: #f2e8d5;
+            }
+        </style>
+        <img class="cover" src="pictures/constraint-validation-support.png" alt="">
+        <footer class="footer">
+            <ul>
+                <li>Правила перекочевали в атрибуты из скриптов.</li>
+                <li>Валидация полей.</li>
+                <li>Валидация формы (не в IE/Edge).</li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide can-i-use-bg">
+        <style>
+            .can-i-use-bg {
+                background-color: #f2e8d5;
+            }
+        </style>
+        <img class="cover" src="pictures/type-email-tel-url-support.png" alt="">
+        <footer class="footer">
+            <ul>
+                <li>Естественные ограничения на основе семантики типа поля.</li>
+                <li>Рассмотрим поля, с которыми будем работать.</li>
+                <li>email
+                    <ul>
+                        <li>значение должно соответствовать RFC 5234 (расширенная спецификация синтаксиса Бэкуса-Наура (ABNF)</li>
+                        <li>мягкая валидация – любой символ + "@" + любой символ</li>
+                        <li>multiple – несколько адресов через запятую (не работает Firefox)</li>
+                    </ul>
+                </li>
+                <li>tel
+                    <ul>
+                        <li>не проверяет валидность синтаксиса, т.к. в разных странах разные форматы (цифры, буквы, прочие символы)</li>
+                        <li>включение соответствующей клавиатуры на устройстве</li>
+                    </ul>
+                </li>
+                <!-- <li>url
+                    <ul>
+                        <li>валидные URI;</li>
+                        <li>валидным IRI без query компонента;</li>
+                        <li>валидным IRI, без query сомпонента и без неэкранированных не-ASCII символов;</li>
+                        <li>валидным IRI, при условии, что кодировка документа UTF-8 или UTF-16</li>
+                        <li>мягкая валидация – любой символ + ":"</li>
+                    </ul>
+                </li> -->
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide can-i-use-bg">
+        <style>
+            .can-i-use-bg {
+                background-color: #f2e8d5;
+            }
+        </style>
+        <img class="cover" src="pictures/type-number-support.png" alt="">
+        <footer class="footer">
+            <ul>
+                <li>Число с плавающей запятой (точкой) — хранится в форме мантиссы и показателя степени.</li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide can-i-use-bg">
+        <style>
+            .can-i-use-bg {
+                background-color: #f2e8d5;
+            }
+        </style>
+        <img class="cover" src="pictures/type-date-time-support.png" alt="">
+        <footer class="footer">
+            <ul>
+                <li>date, datetime, datetime-local, time, month, week</li>
+                <li>С датами все сложно. Сегодня не рассматриваем.</li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide">
+        <style>
+            .th-rotate {
+                writing-mode: sideways-lr;
+                float: left;
+            }
+            th {
+                position: relative;
+
+            }
+            thead th {
+                padding-right: 0 !important;
+            }
+            thead th, .table-pos, .table-neg {
+                width: 5%;
+            }
+            .slide table td:last-child, .slide table th:last-child {
+                padding-right: 0px;
+            }
+        </style>
+        <h2>Условия</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th><span class="th-rotate">text</span></th>
+                    <th><span class="th-rotate">number</span></th>
+                    <th><span class="th-rotate">password</span></th>
+                    <th><span class="th-rotate">email</span></th>
+                    <th><span class="th-rotate">tel</span></th>
+                    <th><span class="th-rotate">url</span></th>
+                    <th><span class="th-rotate">file</span></th>
+                    <th><span class="th-rotate">checkbox</span></th>
+                    <th><span class="th-rotate">radio</span></th>
+                    <th><span class="th-rotate">date*</span></th>
+                    <th><span class="th-rotate">range</span></th>
+                    <th><span class="th-rotate">search</span></th>
+                    <th><span class="th-rotate">&lt;textarea&gt;</span></th>
+                    <th><span class="th-rotate">&lt;select&gt;</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>required</th>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-pos">&#10003;</td>
+                </tr>
+                <tr class="next">
+                    <th>minlength/maxlength</th>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-neg">&#10007;</td>
+                </tr>
+                <tr class="next">
+                    <th>min/max</th>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-neg">&#10007;</td>
+                </tr>
+                <tr class="next">
+                    <th>step</th>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-neg">&#10007;</td>
+                </tr>
+                <tr class="next">
+                    <th>pattern</th>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-pos">&#10003;</td>
+                    <td class="table-neg">&#10007;</td>
+                    <td class="table-neg">&#10007;</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            <em>*А также datetime, datetime-local, time, month, week.</em>
+        </p>
+        <footer class="footer">
+            <ul>
+                <li>Пустое значение всегда проходит проверку, если не добавить атрибут required.</li>
+                <li>required
+                    <ul>
+                        <li>Значение должно быть не пустым</li>
+                        <li>пробел проходит</li>
+                        <li>В элементе ввода обязательный применяется только в сочетании с определенными значениями атрибута type.</li>
+                    </ul>
+                </li>
+                <li>minlength/maxlength
+                    <ul>
+                        <li>Количество символов (in Unicode code points) не должно превышать/быть меньше значения аттрибута.</li>
+                    </ul>
+                </li>
+                <li>min/max
+                    <ul>
+                        <li>Значение поля должно быть больше/меньше или равно значению аттрибута.</li>
+                        <li>Применимо к дате.</li>
+                    </ul>
+                </li>
+                <li>step
+                    <ul>
+                        <li>Пока в аттрибут step не установлен любой литерал, значение может быть min + любое число, кратное шагу.</li>
+                        <li>Проверка числа на кратность допустимому шагу.</li>
+                    </ul>
+                </li>
+                <li>pattern
+                    <ul>
+                        <li>Значение должно соответствовать шаблону.</li>
+                        <li>Регулярка Perl-подобная, с синтаксисом JavaScript, за исключением того, что атрибут pattern должен соответствовать всему значению, а не только подмножеству (except).</li>
+                    </ul>
+                </li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide">
+        <h2>Constraint Validation API methods</h2>
+            <ul>
+                <li>checkValidity() <span class="next">&rarr; invalid event</span><!-- https://developer.mozilla.org/en-US/docs/Web/API/ValidityState--></li>
+                <li>setCustomValidity(message) <span class="next">&rarr; return value</span></li>
+            </ul>
+            <p><a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation#The_HTML5_constraint_validation_API">Constraint validation API properties</a></p>
+        <footer class="footer">
+            <ul>https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation#Constraint_validation_API_methods
+                <li>Метод checkValidity()
+                    <ul>
+                        <li>проверяет имеет ли элемент ограничения и соответствует ли он им</li>
+                        <li>не соответствует — запускает событие invalid и возвращает false, соответствует — invalid и true</li>
+                        <li>Валидность сабмитящегося элемента проверяется перед сабмитом формы или после вызова checkValidity () элемента или его формы.</li>
+                    </ul>
+                </li>
+                <li>Метод setCustomValidity(message)
+                    <ul>
+                        <li>JS-установка кастомного сообщения об ошибке на снове вычисления типа ошибки.</li>
+                        <li>получает строкой, не пустая - ошибка, вывод сообщения; пустая - валидно, сброс сообщения об ошибке.</li>
+                    </ul>
+                </li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide">
+        <h2>Псевдоклассы</h2>
+        <div class="col-l">
+            <strong>Валидация поля</strong>
+            <ol>
+                <li>:valid</li>
+                <li>:invalid</li>
+                <li>:in-range</li>
+                <li>:out-of-range</li>
+            </ol>
+            <strong>Дополнительные условия</strong>
+            <ol>
+                <li>:not</li>
+                <li>:focus</li>
+            </ol>
+        </div>
+        <div class="col-l">
+            <strong>Состояние поля</strong>
+            <ol class="double">
+                <li>:required</li>
+                <li>:optional</li>
+                <li>:default</li>
+                <li>:disabled</li>
+                <li>:enabled</li>
+                <li>:read-only</li>
+                <li>:read-write</li>
+                <li>:checked</li>
+                <li>:indeterminate</li>
+            </ol>
+        </div>
+        <footer class="footer">
+            <ul>
+                <li></li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide white">
+        <img class="cover" src="pictures/stickers.jpg" alt="">
+        <footer class="footer">
+            <ul>
+                <li></li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide">
+        <style>
+            .form__row {
+                margin-bottom: 10px;
+                display: flex;
+                align-items: flex-start;
+                flex-wrap: wrap;
+                line-height: 1.7;
+                font-size: 18px;
+                font-family: Sans,sans-serif;
+            }
+            .form label {
+                margin-bottom: 5px;
+                flex-basis: 25%;
+
+            }
+            .form input {
+                border: 2px solid silver;
+                margin-right: 20px;
+                font-size: 18px;
+                line-height: 1.5;
+                flex-basis: 40%;
+            }
+            .form__code {
+                font-style: italic;
+                color: silver;
+            }
+            .form button {
+                margin-top: 25px;
+                margin-left: 53.2%;
+                border: 2px solid silver;
+                font-size: 18px;
+                line-height: 1.5;
+                background-color: silver;
+            }
+            fieldset {
+                margin-top: 40px;
+            }
+            fieldset .form__row:last-child {
+                margin-bottom: 0;
+            }
+        </style>
+        <h2>Базовая форма</h2>
+        <form class="form" action="https://echo.htmlacademy.ru" method="post">
+            <div class="form__row">
+                <label for="quantity">Количество</label>
+                <input id="quantity" name="quantity" type="text">
+                <span class="form__code">type="text"</span>
+            </div>
+            <div class="form__row">
+                <label for="recipient">Получатель</label>
+                <input id="recipient" name="recipient" type="text">
+                <span class="form__code">type="text"</span>
+            </div>
+            <div class="form__row">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="text">
+                <span class="form__code">type="text"</span>
+            </div>
+            <div class="form__row">
+                <label for="phone">Телефон</label>
+                <input id="phone" name="phone" type="text">
+                <span class="form__code">type="text"</span>
+            </div>
+            <div class="form__row">
+                <label for="postcode">Индекс</label>
+                <input id="postcode" name="postcode" type="text">
+                <span class="form__code">type="text"</span>
+            </div>
+            <div class="form__row">
+                <label for="city">Город</label>
+                <input id="city" name="city" type="text">
+                <span class="form__code">type="text"</span>
+            </div>
+            <div class="form__row">
+                <label for="address">Адрес доставки</label>
+                <input id="address" name="address" type="text">
+                <span class="form__code">type="text"</span>
+            </div>
+            <button type="submit">Заказать</button>
+        </form>
+        <footer class="footer">
+            <ul>
+                <li></li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide white">
+        <h2 class="shout">&lt;datalist&gt;</h2>
+        <footer class="footer">
+            <ul>
+                <li></li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide">
+        <h2>&lt;datalist&gt;</h2>
+        <pre>
+            <code>&lt;input list="list-id" type="text"&gt;</code>
+            <code>&lt;datalist id="list-id"&gt;</code>
+            <code>    &lt;option value="value"&gt;value&lt;/option&gt;</code>
+            <code>    …</code>
+            <code>&lt;/datalist&gt;</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>&lt;datalist&gt;</h2>
+        <pre>
+            <code>&lt;input <mark>list="list-id"</mark> type="text"></code>
+            <code>&lt;datalist <mark>id="list-id"</mark>&gt;</code>
+            <code>    &lt;option value="value"&gt;value&lt;/option&gt;</code>
+            <code>    …</code>
+            <code>&lt;/datalist&gt;</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Нативная автоподстановка</h2>
+        <form class="form" method="post" action="https://echo.htmlacademy.ru">
+            <div class="form__row">
+                <label for="quantity">Количество</label>
+                <input id="quantity" name="quantity" type="text">
+                <span class="form__code"></span>
+            </div>
+            <div class="form__row">
+                <label for="recipient">Получатель</label>
+                <input id="recipient" name="recipient" type="text">
+                <span class="form__code"></span>
+            </div>
+            <div class="form__row">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="text">
+                <span class="form__code"></span>
+            </div>
+            <div class="form__row">
+                <label for="phone">Телефон</label>
+                <input id="phone" name="phone" type="text">
+                <span class="form__code"></span>
+            </div>
+            <div class="form__row">
+                <label for="postcode">Индекс</label>
+                <input id="postcode" name="postcode" type="text">
+                <span class="form__code"></span>
+            </div>
+            <div class="form__row">
+                <label for="city">Город</label>
+                <input id="city" name="city" list="cities-list" type="text">
+                <datalist id="cities-list">
+                    <option value="Брест">Брест</option>
+                    <option value="Витебск">Витебск</option>
+                    <option value="Гомель">Гомель</option>
+                    <option value="Гродно">Гродно</option>
+                    <option value="Минск">Минск</option>
+                    <option value="Могилев">Могилев</option>
+                </datalist>
+                <span class="form__code">&lt;datalist&gt;</span>
+            </div>
+            <div class="form__row">
+                <label for="address">Адрес доставки</label>
+                <input id="address" name="address" type="text">
+                <span class="form__code"></span>
+            </div>
+            <button type="submit">Заказать</button>
+        </form>
+        <footer class="footer">
+            <ul>
+                <li></li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide white">
+        <h2 class="shout">&lt;fieldset&gt;</h2>
+        <footer class="footer">
+            <ul>
+                <li></li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide">
+        <h2>&lt;fieldset&gt;</h2>
+        <pre>
+            <code>&lt;fieldset&gt;</code>
+            <code>  &lt;label for="recipient"&gt;Получатель&lt;/label&gt;</code>
+            <code class="mark">  &lt;input type="text" id="recipient"&gt;</code>
+            <code>  &lt;label for="address"&gt;Email&lt;/label&gt;</code>
+            <code class="mark">  &lt;input type="text" id="address"&gt;</code>
+            <code>  &lt;label for="phone"&gt;Телефон&lt;/label&gt;</code>
+            <code class="mark">  &lt;input type="text" id="phone"&gt;</code>
+            <code>&lt;/fieldset&gt;</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Группируем поля</h2>
+        <form class="form" method="post" action="https://echo.htmlacademy.ru">
+            <div class="form__row">
+                <label for="quantity">Количество</label>
+                <input id="quantity" name="quantity" type="text">
+                <span class="form__code"></span>
+            </div>
+            <fieldset>
+                <div class="form__row">
+                    <label for="recipient">Получатель</label>
+                    <input id="recipient" name="recipient" type="text">
+                    <span class="form__code">&lt;fieldset&gt;</span>
+                </div>
+                <div class="form__row">
+                    <label for="email">Email</label>
+                    <input id="email" name="email" type="text">
+                    <span class="form__code"></span>
+                </div>
+                <div class="form__row">
+                    <label for="phone">Телефон</label>
+                    <input id="phone" name="phone" type="text">
+                    <span class="form__code">&lt;/fieldset&gt;</span>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="form__row">
+                    <label for="postcode">Индекс</label>
+                    <input id="postcode" name="postcode" type="text">
+                    <span class="form__code">&lt;fieldset&gt;</span>
+                </div>
+                <div class="form__row">
+                    <label for="city">Город</label>
+                    <input id="city" name="city" list="cities-list" type="text">
+                    <datalist id="cities-list">
+                        <option value="Брест">Брест</option>
+                        <option value="Витебск">Витебск</option>
+                        <option value="Гомель">Гомель</option>
+                        <option value="Гродно">Гродно</option>
+                        <option value="Минск">Минск</option>
+                        <option value="Могилев">Могилев</option>
+                    </datalist>
+                    <span class="form__code"></span>
+                </div>
+                <div class="form__row">
+                    <label for="address">Адрес доставки</label>
+                    <input id="address" name="address" type="text">
+                    <span class="form__code">&lt;/fieldset&gt;</span>
+                </div>
+            </fieldset>
+            <button type="submit">Заказать</button>
+        </form>
+        <footer class="footer">
+            <ul>
+                <li></li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide">
+        <h2>&lt;fieldset&gt;</h2>
+        <pre>
+            <code>&lt;fieldset&gt;</code>
+            <code class="mark">  &lt;legend&gt;Получатель&lt;/legend&gt;</code>
+            <code>  &lt;label for="recipient"&gt;Получатель&lt;/label&gt;</code>
+            <code>  &lt;input type="text" id="recipient"&gt;</code>
+            <code>  &lt;label for="address"&gt;Email&lt;/label&gt;</code>
+            <code>  &lt;input type="text" id="address"&gt;</code>
+            <code>  &lt;label for="phone"&gt;Телефон&lt;/label&gt;</code>
+            <code>  &lt;input type="text" id="phone"&gt;</code>
+            <code>&lt;/fieldset&gt;</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Задаем обязательные поля</h2>
+        <form class="form" method="post" action="https://echo.htmlacademy.ru">
+            <div class="form__row">
+                <label for="quantity">Количество *</label>
+                <input id="quantity" name="quantity" type="text" required>
+                <span class="form__code">required</span>
+            </div>
+            <fieldset>
+                <div class="form__row">
+                    <label for="recipient">Получатель *</label>
+                    <input id="recipient" name="recipient" type="text" required>
+                    <span class="form__code">required</span>
+                </div>
+                <div class="form__row">
+                    <label for="email">Email *</label>
+                    <input id="email" name="email" type="text" required>
+                    <span class="form__code">required</span>
+                </div>
+                <div class="form__row">
+                    <label for="phone">Телефон</label>
+                    <input id="phone" name="phone" type="text">
+                    <span class="form__code"></span>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="form__row">
+                    <label for="postcode">Индекс *</label>
+                    <input id="postcode" name="postcode" type="text" required>
+                    <span class="form__code">required</span>
+                </div>
+                <div class="form__row">
+                    <label for="city">Город *</label>
+                    <input id="city" name="city" list="cities-list" type="text" required>
+                    <datalist id="cities-list">
+                        <option value="Брест">Брест</option>
+                        <option value="Витебск">Витебск</option>
+                        <option value="Гомель">Гомель</option>
+                        <option value="Гродно">Гродно</option>
+                        <option value="Минск">Минск</option>
+                        <option value="Могилев">Могилев</option>
+                    </datalist>
+                    <span class="form__code">required</span>
+                </div>
+                <div class="form__row">
+                    <label for="address">Адрес доставки *</label>
+                    <input id="address" name="address" type="text" required>
+                    <span class="form__code">required</span>
+                </div>
+            </fieldset>
+            <button type="submit">Заказать</button>
+        </form>
+        <footer class="footer">
+            <ul>
+                <li></li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide">
+        <h2>Отключение подсветки в Firefox</h2>
+        <pre>
+            <code>:invalid,</code>
+            <code>:-moz-submit-invalid,</code>
+            <code>:-moz-ui-invalid {</code>
+            <code>  box-shadow: none;</code>
+            <code>}</code>
+        </pre>
+        <footer class="footer">
+            <ul>
+                <li></li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide">
+        <h2>Переопределение стилей поля</h2>
+        <pre>
+            <code>input:invalid,</code>
+            <code>  border-color: red;</code>
+            <code>}</code>
+            <code>&nbsp;</code>
+            <code>input:valid,</code>
+            <code>  border-color: green;</code>
+            <code>}</code>
+        </pre>
+        <footer class="footer">
+            <ul>
+                <li></li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide">
+        <style>
+            .form_firefox :invalid,
+            .form_firefox :-moz-submit-invalid,
+            .form_firefox :-moz-ui-invalid {
+                box-shadow: none;
+            }
+            .form_custom input:invalid {
+                border-color: red;
+            }
+            .form_custom input:invalid {
+                border-color: green;
+            }
+        </style>
+        <h2>Задаем обязательные поля</h2>
+        <form class="form form_firefox form_custom" method="post" action="https://echo.htmlacademy.ru">
+            <div class="form__row">
+                <label for="quantity">Количество *</label>
+                <input id="quantity" name="quantity" type="text" required>
+                <span class="form__code">required</span>
+            </div>
+            <fieldset>
+                <div class="form__row">
+                    <label for="recipient">Получатель *</label>
+                    <input id="recipient" name="recipient" type="text" required>
+                    <span class="form__code">required</span>
+                </div>
+                <div class="form__row">
+                    <label for="email">Email *</label>
+                    <input id="email" name="email" type="text" required>
+                    <span class="form__code">required</span>
+                </div>
+                <div class="form__row">
+                    <label for="phone">Телефон</label>
+                    <input id="phone" name="phone" type="text">
+                    <span class="form__code"></span>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="form__row">
+                    <label for="postcode">Индекс *</label>
+                    <input id="postcode" name="postcode" type="text" required>
+                    <span class="form__code">required</span>
+                </div>
+                <div class="form__row">
+                    <label for="city">Город *</label>
+                    <input id="city" name="city" list="cities-list" type="text" required>
+                    <datalist id="cities-list">
+                        <option value="Брест">Брест</option>
+                        <option value="Витебск">Витебск</option>
+                        <option value="Гомель">Гомель</option>
+                        <option value="Гродно">Гродно</option>
+                        <option value="Минск">Минск</option>
+                        <option value="Могилев">Могилев</option>
+                    </datalist>
+                    <span class="form__code">required</span>
+                </div>
+                <div class="form__row">
+                    <label for="address">Адрес доставки *</label>
+                    <input id="address" name="address" type="text" required>
+                    <span class="form__code">required</span>
+                </div>
+            </fieldset>
+            <button type="submit">Заказать</button>
+        </form>
+        <footer class="footer">
+            <ul>
+                <li></li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide white">
+        <h2 class="shout">:placeholder-<br>shown</h2>
+        <footer class="footer">
+            <ul>
+                <li></li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide can-i-use-bg">
+        <style>
+            .can-i-use-bg {
+                background-color: #f2e8d5;
+            }
+        </style>
+        <img class="cover" src="pictures/placeholder-shown-support.png" alt="">
+        <footer class="footer">
+            <ul>
+                <li></li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide">
+        <h2>Меняем момент проверки поля</h2>
+        <pre>
+            <code>input:invalid:not(:focus):not(:placeholder-shown) {</code>
+            <code>  border-color: red;</code>
+            <code>}</code>
+        </pre>
+        <footer class="footer">
+            <ul>
+                <li></li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide">
+        <h2>Меняем момент проверки поля</h2>
+        <pre>
+            <code>input:invalid:not(:focus)<mark>:not(:placeholder-shown)</mark> {</code>
+            <code>  border-color: red;</code>
+            <code>}</code>
+        </pre>
+        <footer class="footer">
+            <ul>
+                <li></li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide">
+        <h2>Меняем момент проверки поля</h2>
+        <pre>
+            <code>input:invalid<mark>:not(:focus)</mark>:not(:placeholder-shown) {</code>
+            <code>  border-color: red;</code>
+            <code>}</code>
+        </pre>
+        <footer class="footer">
+            <ul>
+                <li></li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide">
+        <h2>Меняем момент проверки поля</h2>
+        <pre>
+            <code><mark>input:invalid</mark>:not(:focus):not(:placeholder-shown) {</code>
+            <code>  border-color: red;</code>
+            <code>}</code>
+        </pre>
+        <footer class="footer">
+            <ul>
+                <li></li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide">
+        <style>
+            .form_custom-moment input:invalid:not(:focus):not(:placeholder-shown) {
+                border-color: red;
+            }
+            .form_custom-moment input:valid:not(:focus):not(:placeholder-shown) {
+                border-color: green;
+            }
+        </style>
+        <h2>Меняем момент проверки поля</h2>
+        <form class="form form_firefox form_custom-moment" method="post" action="https://echo.htmlacademy.ru">
+            <div class="form__row">
+                <label for="quantity">Количество *</label>
+                <input id="quantity" name="quantity" type="text" placeholder=" " required>
+                <span class="form__code">placeholder=" "</span>
+            </div>
+            <fieldset>
+                <div class="form__row">
+                    <label for="recipient">Получатель *</label>
+                    <input id="recipient" name="recipient" type="text" placeholder=" " required>
+                    <span class="form__code">placeholder=" "</span>
+                </div>
+                <div class="form__row">
+                    <label for="email">Email *</label>
+                    <input id="email" name="email" type="text" placeholder=" " required>
+                    <span class="form__code">placeholder=" "</span>
+                </div>
+                <div class="form__row">
+                    <label for="phone">Телефон</label>
+                    <input id="phone" name="phone" type="text" placeholder=" ">
+                    <span class="form__code"></span>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="form__row">
+                    <label for="postcode">Индекс *</label>
+                    <input id="postcode" name="postcode" type="text" placeholder=" " required>
+                    <span class="form__code">placeholder=" "</span>
+                </div>
+                <div class="form__row">
+                    <label for="city">Город *</label>
+                    <input id="city" name="city" list="cities-list" type="text" placeholder=" " required>
+                    <datalist id="cities-list">
+                        <option value="Брест">Брест</option>
+                        <option value="Витебск">Витебск</option>
+                        <option value="Гомель">Гомель</option>
+                        <option value="Гродно">Гродно</option>
+                        <option value="Минск">Минск</option>
+                        <option value="Могилев">Могилев</option>
+                    </datalist>
+                    <span class="form__code">placeholder=" "</span>
+                </div>
+                <div class="form__row">
+                    <label for="address">Адрес доставки *</label>
+                    <input id="address" name="address" type="text" placeholder=" " required>
+                    <span class="form__code">placeholder=" "</span>
+                </div>
+            </fieldset>
+            <button type="submit">Заказать</button>
+        </form>
+        <footer class="footer">
+            <ul>
+                <li></li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide">
+        <h2>&lt;fieldset&gt;</h2>
+        <pre>
+            <code>&lt;fieldset <mark>disabled</mark>&gt;</code>
+            <code>  &lt;legend&gt;Получатель&lt;/legend&gt;</code>
+            <code>  &lt;label for="recipient"&gt;Получатель&lt;/label&gt;</code>
+            <code>  &lt;input type="text" id="recipient"&gt;</code>
+            <code>  &lt;label for="address"&gt;Email&lt;/label&gt;</code>
+            <code>  &lt;input type="text" id="address"&gt;</code>
+            <code>  &lt;label for="phone"&gt;Телефон&lt;/label&gt;</code>
+            <code>  &lt;input type="text" id="phone"&gt;</code>
+            <code>&lt;/fieldset&gt;</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Блокировка группы полей</h2>
+        <form class="form form_firefox form_custom-moment" method="post" action="https://echo.htmlacademy.ru">
+            <div class="form__row">
+                <label for="quantity">Количество *</label>
+                <input id="quantity" name="quantity" type="text" placeholder=" " required>
+                <span class="form__code">placeholder=" "</span>
+            </div>
+            <fieldset>
+                <div class="form__row">
+                    <label for="recipient">Получатель *</label>
+                    <input id="recipient" name="recipient" type="text" placeholder=" " required>
+                    <span class="form__code">placeholder=" "</span>
+                </div>
+                <div class="form__row">
+                    <label for="email">Email *</label>
+                    <input id="email" name="email" type="text" placeholder=" " required>
+                    <span class="form__code">placeholder=" "</span>
+                </div>
+                <div class="form__row">
+                    <label for="phone">Телефон</label>
+                    <input id="phone" name="phone" type="text" placeholder=" ">
+                    <span class="form__code"></span>
+                </div>
+            </fieldset>
+            <fieldset disabled>
+                <div class="form__row">
+                    <label for="postcode">Индекс *</label>
+                    <input id="postcode" name="postcode" type="text" placeholder=" " required>
+                    <span class="form__code">placeholder=" "</span>
+                </div>
+                <div class="form__row">
+                    <label for="city">Город *</label>
+                    <input id="city" name="city" list="cities-list" type="text" placeholder=" " required>
+                    <datalist id="cities-list">
+                        <option value="Брест">Брест</option>
+                        <option value="Витебск">Витебск</option>
+                        <option value="Гомель">Гомель</option>
+                        <option value="Гродно">Гродно</option>
+                        <option value="Минск">Минск</option>
+                        <option value="Могилев">Могилев</option>
+                    </datalist>
+                    <span class="form__code">placeholder=" "</span>
+                </div>
+                <div class="form__row">
+                    <label for="address">Адрес доставки *</label>
+                    <input id="address" name="address" type="text" placeholder=" " required>
+                    <span class="form__code">placeholder=" "</span>
+                </div>
+            </fieldset>
+            <button type="submit">Заказать</button>
+        </form>
+        <footer class="footer">
+            <ul>
+                <li></li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide">
+        <h2>Добавляем семантику</h2>
+        <form class="form form_firefox form_custom-moment" method="post" action="https://echo.htmlacademy.ru">
+            <div class="form__row">
+                <label for="quantity">Количество *</label>
+                <input id="quantity" name="quantity" type="number" placeholder=" " required>
+                <span class="form__code">type="number"</span>
+            </div>
+            <fieldset>
+                <div class="form__row">
+                    <label for="recipient">Получатель *</label>
+                    <input id="recipient" name="recipient" type="text" placeholder=" " required>
+                    <span class="form__code"></span>
+                </div>
+                <div class="form__row">
+                    <label for="email">Email *</label>
+                    <input id="email" name="email" type="email" placeholder=" " required>
+                    <span class="form__code">type="email"</span>
+                </div>
+                <div class="form__row">
+                    <label for="phone">Телефон</label>
+                    <input id="phone" name="phone" type="tel" placeholder=" ">
+                    <span class="form__code">type="tel"</span>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="form__row">
+                    <label for="postcode">Индекс *</label>
+                    <input id="postcode" name="postcode" type="text" placeholder=" " required>
+                    <span class="form__code"></span>
+                </div>
+                <div class="form__row">
+                    <label for="city">Город *</label>
+                    <input id="city" name="city" list="cities-list" type="text" placeholder=" " required>
+                    <datalist id="cities-list">
+                        <option value="Брест">Брест</option>
+                        <option value="Витебск">Витебск</option>
+                        <option value="Гомель">Гомель</option>
+                        <option value="Гродно">Гродно</option>
+                        <option value="Минск">Минск</option>
+                        <option value="Могилев">Могилев</option>
+                    </datalist>
+                    <span class="form__code"></span>
+                </div>
+                <div class="form__row">
+                    <label for="address">Адрес доставки *</label>
+                    <input id="address" name="address" type="text" placeholder=" " required>
+                    <span class="form__code"></span>
+                </div>
+            </fieldset>
+            <button type="submit">Заказать</button>
+        </form>
+        <footer class="footer">
+            <ul>
+                <li>В Firefox можно вбить не цифры, в Chrome - нет.</li>
+                <li>В Firefox не срабатывает трюк с placeholder-shown.</li>
+                <li>В Firefox не подставляется value. https://bugzilla.mozilla.org/show_bug.cgi?id=1005603</li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide">
+        <h2>Ужесточаем требования</h2>
+        <form class="form form_firefox form_custom-moment" method="post" action="https://echo.htmlacademy.ru">
+            <div class="form__row">
+                <label for="quantity">Количество *</label>
+                <input id="quantity" name="quantity" type="number" value="1" min="1" placeholder=" " required>
+                <span class="form__code">min="1", value="1"</span>
+            </div>
+            <fieldset>
+                <div class="form__row">
+                    <label for="recipient">Получатель *</label>
+                    <input id="recipient" name="recipient" type="text" placeholder=" " required>
+                    <span class="form__code"></span>
+                </div>
+                <div class="form__row">
+                    <label for="email">Email *</label>
+                    <input id="email" name="email" type="email" pattern="^[a-zA-Z0-9]([a-zA-Z0-9_\-]*\.?[a-zA-Z0-9_\-]+)*@[a-zA-Z0-9][a-zA-Z0-9_\-]*\.[a-zA-Z]{2}[a-zA-Z]*$" placeholder=" " required>
+                    <span class="form__code">pattern="^[a-zA-Z0-9]([a-…"</span>
+                </div>
+                <div class="form__row">
+                    <label for="phone">Телефон</label>
+                    <input id="phone" name="phone" type="tel" placeholder=" ">
+                    <span class="form__code"></span>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="form__row">
+                    <label for="postcode">Индекс *</label>
+                    <input id="postcode" name="postcode" type="text" pattern="^[0-9]{6}$" title="220 000" placeholder=" " required>
+                    <span class="form__code">pattern="^[0-9]{6}$"</span>
+                </div>
+                <div class="form__row">
+                    <label for="city">Город *</label>
+                    <input id="city" name="city" list="cities-list" type="text" pattern="^\D{3,}$" placeholder=" " required>
+                    <datalist id="cities-list">
+                        <option value="Брест">Брест</option>
+                        <option value="Витебск">Витебск</option>
+                        <option value="Гомель">Гомель</option>
+                        <option value="Гродно">Гродно</option>
+                        <option value="Минск">Минск</option>
+                        <option value="Могилев">Могилев</option>
+                    </datalist>
+                    <span class="form__code">pattern="^\D{3,}$"</span>
+                </div>
+                <div class="form__row">
+                    <label for="address">Адрес доставки *</label>
+                    <input id="address" name="address" type="text" placeholder=" " minlength="5" required>
+                    <span class="form__code">minlength="5"</span>
+                </div>
+            </fieldset>
+            <button type="submit">Заказать</button>
+        </form>
+        <footer class="footer">
+            <ul>
+                <li>pattern не работает без required</li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide">
+        <h2>Подсказки</h2>
+        <form class="form form_firefox form_custom-moment" method="post" action="https://echo.htmlacademy.ru">
+            <div class="form__row">
+                <label for="quantity">Количество *</label>
+                <input id="quantity" name="quantity" type="number" value="1" min="1" placeholder=" " required>
+                <span class="form__code"></span>
+            </div>
+            <fieldset>
+                <div class="form__row">
+                    <label for="recipient">Получатель *</label>
+                    <input id="recipient" name="recipient" type="text" placeholder="Василий Пупкин" required>
+                    <span class="form__code">placeholder="Василий Пу…"</span>
+                </div>
+                <div class="form__row">
+                    <label for="email">Email *</label>
+                    <input id="email" name="email" type="email" pattern="^[a-zA-Z0-9]([a-zA-Z0-9_\-]*\.?[a-zA-Z0-9_\-]+)*@[a-zA-Z0-9][a-zA-Z0-9_\-]*\.[a-zA-Z]{2}[a-zA-Z]*$" title="vasiliy@pupkin.ru" placeholder="vasiliy@pupkin.ru" required>
+                    <span class="form__code">placeholder="vasiliy@pu…"</span>
+                </div>
+                <div class="form__row">
+                    <label for="phone">Телефон</label>
+                    <input id="phone" name="phone" type="tel" placeholder="+375 29 666 66 66">
+                    <span class="form__code">placeholder="+375 29 66…"</span>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="form__row">
+                    <label for="postcode">Индекс *</label>
+                    <input id="postcode" name="postcode" type="text" pattern="^[0-9]{6}$" placeholder="220 000" required>
+                    <span class="form__code">placeholder="220 000"</span>
+                </div>
+                <div class="form__row">
+                    <label for="city">Город *</label>
+                    <input id="city" name="city" list="cities-list" type="text" pattern="^\D{3,}$" placeholder="Минск" required>
+                    <datalist id="cities-list">
+                        <option value="Брест">Брест</option>
+                        <option value="Витебск">Витебск</option>
+                        <option value="Гомель">Гомель</option>
+                        <option value="Гродно">Гродно</option>
+                        <option value="Минск">Минск</option>
+                        <option value="Могилев">Могилев</option>
+                    </datalist>
+                    <span class="form__code">placeholder="Минск"</span>
+                </div>
+                <div class="form__row">
+                    <label for="address">Адрес доставки *</label>
+                    <input id="address" name="address" type="text" placeholder="ул. Октябрьская, 16А" minlength="5" required>
+                    <span class="form__code">placeholder="ул. Октябр…"</span>
+                </div>
+            </fieldset>
+            <button type="submit">Заказать</button>
+        </form>
+        <footer class="footer">
+            <ul>
+                <li></li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide">
+        <h2>Сообщения об ошибках</h2>
+        <form class="form form_firefox form_custom-moment" method="post" action="https://echo.htmlacademy.ru">
+            <div class="form__row">
+                <label for="quantity">Количество *</label>
+                <input id="quantity" name="quantity" type="number" value="1" min="1" placeholder=" " required>
+                <span class="form__code"></span>
+            </div>
+            <fieldset>
+                <div class="form__row">
+                    <label for="recipient">Получатель *</label>
+                    <input id="recipient" name="recipient" type="text" placeholder="Василий Пупкин" required>
+                    <span class="form__code"></span>
+                </div>
+                <div class="form__row">
+                    <label for="email">Email *</label>
+                    <input id="email" name="email" type="email" pattern="^[a-zA-Z0-9]([a-zA-Z0-9_\-]*\.?[a-zA-Z0-9_\-]+)*@[a-zA-Z0-9][a-zA-Z0-9_\-]*\.[a-zA-Z]{2}[a-zA-Z]*$" title="vasiliy@pupkin.ru" placeholder="vasiliy@pupkin.ru" title="vasiliy@pupkin.ru" required>
+                    <span class="form__code">title="vasiliy@pupkin.ru"</span>
+                </div>
+                <div class="form__row">
+                    <label for="phone">Телефон</label>
+                    <input id="phone" name="phone" type="tel" placeholder="+375 29 666 66 66">
+                    <span class="form__code"></span>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="form__row">
+                    <label for="postcode">Индекс *</label>
+                    <input id="postcode" name="postcode" type="text" pattern="^[0-9]{6}$" placeholder="220000" title="220000" required>
+                    <span class="form__code">title="220000"</span>
+                </div>
+                <div class="form__row">
+                    <label for="city">Город *</label>
+                    <input id="city" name="city" list="cities-list" type="text" pattern="^\D{3,}$" placeholder="Минск" required>
+                    <datalist id="cities-list">
+                        <option value="Брест">Брест</option>
+                        <option value="Витебск">Витебск</option>
+                        <option value="Гомель">Гомель</option>
+                        <option value="Гродно">Гродно</option>
+                        <option value="Минск">Минск</option>
+                        <option value="Могилев">Могилев</option>
+                    </datalist>
+                    <span class="form__code"></span>
+                </div>
+                <div class="form__row">
+                    <label for="address">Адрес доставки *</label>
+                    <input id="address" name="address" type="text" placeholder="ул. Октябрьская, 16А" minlength="5" required>
+                    <span class="form__code"></span>
+                </div>
+            </fieldset>
+            <button type="submit">Заказать</button>
+        </form>
+        <footer class="footer">
+            <ul>
+                <li></li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide">
+        <style>
+            form + button {
+                border: 2px solid green;
+                margin-left: 53%;
+                font-size: 18px;
+                line-height: 1.5;
+                background-color: green;
+                color: #ffffff;
+            }
+            form:invalid + button {
+                pointer-events: none;
+                opacity: 0.4;
+                background-color: red;
+                border-color: red;
+
+            }
+            .form__message {
+                display: none;
+                flex-basis: 25%;
+                font-size: 14px;
+                font-style: italic;
+            }
+            input:focus + .form__message {
+                display: block;
+            }
+            input:invalid:not(focus):not(:placeholder-shown) + .form__message {
+                display: block;
+            }
+            input:invalid:not(focus) + .form__message {
+                color: red;
+            }
+            input:invalid:focus + .form__message {
+                color: silver;
+            }
+            input:valid:focus + .form__message {
+                display: none;
+            }
+        </style>
+        <h2>Кастомные сообщения</h2>
+        <form class="form form_firefox form_custom-moment" method="post" action="https://echo.htmlacademy.ru">
+            <div class="form__row">
+                <label for="quantity">Количество *</label>
+                <input id="quantity" name="quantity" type="text" value="1" placeholder=" " pattern="\d{1,}$">
+                <span class="form__code form__message">Цифры. Мин. — 1. Обязательно.</span>
+            </div>
+            <fieldset>
+                <div class="form__row">
+                    <label for="recipient">Получатель *</label>
+                    <input id="recipient" name="recipient" type="text" placeholder="Василий Пупкин" pattern="^\S{5,}$">
+                    <span class="form__code form__message">5+ символов. Обязательно.</span>
+                </div>
+                <div class="form__row">
+                    <label for="email">Email *</label>
+                    <input id="email" name="email" type="email" pattern="^[a-zA-Z0-9]([a-zA-Z0-9_\-]*\.?[a-zA-Z0-9_\-]+)*@[a-zA-Z0-9][a-zA-Z0-9_\-]*\.[a-zA-Z]{2}[a-zA-Z]*$" placeholder="vasiliy@pupkin.ru" title="vasiliy@pupkin.ru" required>
+                    <span class="form__code form__message">7+ символов. Обязательно.</span>
+                </div>
+                <div class="form__row">
+                    <label for="phone">Телефон</label>
+                    <input id="phone" name="phone" type="tel" placeholder="+375 29 666 66 66">
+                    <span class="form__code form__message"></span>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="form__row">
+                    <label for="postcode">Индекс *</label>
+                    <input id="postcode" name="postcode" type="text" pattern="^[0-9]{6}$" placeholder="220000" required>
+                    <span class="form__code form__message">6 цифр. Обязательно.</span>
+                </div>
+                <div class="form__row">
+                    <label for="city">Город *</label>
+                    <input id="city" name="city" type="text" pattern="^\D{3,}$" placeholder="Минск">
+                    <span class="form__code form__message">3+ символов. Обязательно.</span>
+                </div>
+                <div class="form__row">
+                    <label for="address">Адрес доставки *</label>
+                    <input id="address" name="address" type="text" placeholder="ул. Октябрьская, 16А" pattern="^\D{5,}$" required>
+                    <span class="form__code form__message">5+ символов. Обязательно.</span>
+                </div>
+            </fieldset>
+        </form>
+        <button type="submit">Заказать</button>
+        <footer class="footer">
+            <ul>
+                <li></li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide">
+        <h2>Управление кнопкой</h2>
+        <div class="col-l">
+            <pre>
+                <code>&lt;form&gt;</code>
+                <code>  …</code>
+                <code>&lt;/form&gt;</code>
+                <code>&lt;button&gt;</code>
+                <code>  Заказать</code>
+                <code>&lt;/button&gt;</code>
+            </pre>
+        </div>
+        <div class="col-l">
+            <pre>
+                <code>form:invalid + button {</code>
+                <code>  border-color: red;</code>
+                <code>  background: red;</code>
+                <code>  opacity: 0.4;</code>
+                <code>}</code>
+                <code>form:valid + button {</code>
+                <code>  border-color: green;</code>
+                <code>  background: green;</code>
+                <code>}</code>
+            </pre>
+        </div>
+        <footer class="footer">
+            <ul>
+                <li></li>
+            </ul>
+        </footer>
+    </section>
+    <section class="slide">
+        <h2>Управление кнопкой</h2>
+        <div class="col-l">
+            <pre>
+                <code>&lt;form <mark>id="checkout"</mark>&gt;</code>
+                <code>  …</code>
+                <code>&lt;/form&gt;</code>
+                <code>&lt;button <mark>form="checkout"</mark>&gt;</code>
+                <code>  Заказать</code>
+                <code>&lt;/button&gt;</code>
+            </pre>
+        </div>
+        <div class="col-l">
+            <pre>
+                <code>form:invalid + button {</code>
+                <code>  border-color: red;</code>
+                <code>  background: red;</code>
+                <code>  opacity: 0.4;</code>
+                <code>}</code>
+                <code>form:valid + button {</code>
+                <code>  border-color: green;</code>
+                <code>  background: green;</code>
+                <code>}</code>
+            </pre>
+        </div>
+        <footer class="footer">
+            <ul>
+                <li></li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide">
+        <h2>Выводы</h2>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <footer class="footer">
+            <ul>
+                <li></li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide white" id="fin">
+        <h2>Спасибо за внимание!<br> Вопросы?</h2>
+        <img src="pictures/stickers.jpg" alt="" class="cover" style="position: relative; top: 300px;">
+        <style>
+            #fin {
+                padding-top: 100px;
+            }
+            #fin h2 {
+                margin: 0;
+                text-align:center;
+                font-size:70px;
+                color: #000;
+                }
+            #fin p {
+                margin:10px 0 0;
+                text-align:center;
+                color:#FFF;
+                font-style:italic;
+                font-size:20px;
+                color: #000;
+                }
+                #fin p a {
+                    color: #000;
+                    }
+        </style>
+    </section>
+
+    <p class="badge">
+        <a href="https://github.com/shower/shower">Fork me on GitHub</a>
+    </p>
+    <!--
+        To hide progress bar from entire presentation
+        just remove “progress” element.
+        -->
+    <div class="progress"></div>
+    <script src="shower/shower.min.js"></script>
+    <!-- Copyright © 2015 Yours Truly, Famous Inc. -->
+    <!-- Photos by John Carey, fiftyfootshadows.net -->
+</body>
+</html>
