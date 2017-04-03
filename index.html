@@ -506,7 +506,7 @@
             }
         </style>
         <h2>Базовая форма</h2>
-        <form class="form" action="https://echo.htmlacademy.ru" method="post">
+        <form class="form" action="https://echo.htmlacademy.ru" method="post" target="_blank">
             <div class="form__row">
                 <label for="quantity">Количество</label>
                 <input id="quantity" name="quantity" type="text">
@@ -584,7 +584,7 @@
 
     <section class="slide">
         <h2>Нативная автоподстановка</h2>
-        <form class="form" method="post" action="https://echo.htmlacademy.ru">
+        <form class="form" method="post" action="https://echo.htmlacademy.ru" target="_blank">
             <div class="form__row">
                 <label for="quantity">Количество</label>
                 <input id="quantity" name="quantity" type="text">
@@ -662,7 +662,7 @@
 
     <section class="slide">
         <h2>Группируем поля</h2>
-        <form class="form" method="post" action="https://echo.htmlacademy.ru">
+        <form class="form" method="post" action="https://echo.htmlacademy.ru" target="_blank">
             <div class="form__row">
                 <label for="quantity">Количество</label>
                 <input id="quantity" name="quantity" type="text">
@@ -723,7 +723,7 @@
         <h2>&lt;fieldset&gt;</h2>
         <pre>
             <code>&lt;fieldset&gt;</code>
-            <code class="mark">  &lt;legend&gt;Получатель&lt;/legend&gt;</code>
+            <code class="mark">  &lt;legend&gt;Контакты&lt;/legend&gt;</code>
             <code>  &lt;label for="recipient"&gt;Получатель&lt;/label&gt;</code>
             <code>  &lt;input type="text" id="recipient"&gt;</code>
             <code>  &lt;label for="address"&gt;Email&lt;/label&gt;</code>
@@ -736,7 +736,7 @@
 
     <section class="slide">
         <h2>Задаем обязательные поля</h2>
-        <form class="form" method="post" action="https://echo.htmlacademy.ru">
+        <form class="form" method="post" action="https://echo.htmlacademy.ru" target="_blank">
             <div class="form__row">
                 <label for="quantity">Количество *</label>
                 <input id="quantity" name="quantity" type="text" required>
@@ -796,9 +796,41 @@
     <section class="slide">
         <h2>Отключение подсветки в Firefox</h2>
         <pre>
-            <code>:invalid,</code>
+            <code><mark>:invalid</mark>,</code>
             <code>:-moz-submit-invalid,</code>
             <code>:-moz-ui-invalid {</code>
+            <code>  box-shadow: none;</code>
+            <code>}</code>
+        </pre>
+        <footer class="footer">
+            <ul>
+                <li></li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide">
+        <h2>Отключение подсветки в Firefox</h2>
+        <pre>
+            <code>:invalid,</code>
+            <code><mark>:-moz-submit-invalid</mark>,</code>
+            <code>:-moz-ui-invalid {</code>
+            <code>  box-shadow: none;</code>
+            <code>}</code>
+        </pre>
+        <footer class="footer">
+            <ul>
+                <li></li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide">
+        <h2>Отключение подсветки в Firefox</h2>
+        <pre>
+            <code>:invalid,</code>
+            <code>:-moz-submit-invalid,</code>
+            <code><mark>:-moz-ui-invalid</mark> {</code>
             <code>  box-shadow: none;</code>
             <code>}</code>
         </pre>
@@ -842,7 +874,7 @@
             }
         </style>
         <h2>Задаем обязательные поля</h2>
-        <form class="form form_firefox form_custom" method="post" action="https://echo.htmlacademy.ru">
+        <form class="form form_firefox form_custom" method="post" action="https://echo.htmlacademy.ru" target="_blank">
             <div class="form__row">
                 <label for="quantity">Количество *</label>
                 <input id="quantity" name="quantity" type="text" required>
@@ -979,6 +1011,23 @@
     </section>
 
     <section class="slide">
+        <h2>Меняем момент проверки поля</h2>
+        <pre>
+            <code>input:invalid:not(:focus):not(:placeholder-shown) {</code>
+            <code>  border-color: red;</code>
+            <code>}</code>
+            <code><mark>input:valid</mark>:not(:focus):not(:placeholder-shown) {</code>
+            <code>  border-color: green;</code>
+            <code>}</code>
+        </pre>
+        <footer class="footer">
+            <ul>
+                <li></li>
+            </ul>
+        </footer>
+    </section>
+
+    <section class="slide">
         <style>
             .form_custom-moment input:invalid:not(:focus):not(:placeholder-shown) {
                 border-color: red;
@@ -988,7 +1037,7 @@
             }
         </style>
         <h2>Меняем момент проверки поля</h2>
-        <form class="form form_firefox form_custom-moment" method="post" action="https://echo.htmlacademy.ru">
+        <form class="form form_firefox form_custom-moment" method="post" action="https://echo.htmlacademy.ru" target="_blank">
             <div class="form__row">
                 <label for="quantity">Количество *</label>
                 <input id="quantity" name="quantity" type="text" placeholder=" " required>
@@ -1121,7 +1170,7 @@
 
     <section class="slide">
         <h2>Добавляем семантику</h2>
-        <form class="form form_firefox form_custom-moment" method="post" action="https://echo.htmlacademy.ru">
+        <form class="form form_firefox form_custom-moment" method="post" action="https://echo.htmlacademy.ru" target="_blank">
             <div class="form__row">
                 <label for="quantity">Количество *</label>
                 <input id="quantity" name="quantity" type="number" placeholder=" " required>
@@ -1182,7 +1231,7 @@
 
     <section class="slide">
         <h2>Ужесточаем требования</h2>
-        <form class="form form_firefox form_custom-moment" method="post" action="https://echo.htmlacademy.ru">
+        <form class="form form_firefox form_custom-moment" method="post" action="https://echo.htmlacademy.ru" target="_blank">
             <div class="form__row">
                 <label for="quantity">Количество *</label>
                 <input id="quantity" name="quantity" type="number" value="1" min="1" placeholder=" " required>
@@ -1191,8 +1240,8 @@
             <fieldset>
                 <div class="form__row">
                     <label for="recipient">Получатель *</label>
-                    <input id="recipient" name="recipient" type="text" placeholder=" " required>
-                    <span class="form__code"></span>
+                    <input id="recipient" name="recipient" type="text" minlength="5" placeholder=" " required>
+                    <span class="form__code">minlength="5"</span>
                 </div>
                 <div class="form__row">
                     <label for="email">Email *</label>
@@ -1208,7 +1257,7 @@
             <fieldset>
                 <div class="form__row">
                     <label for="postcode">Индекс *</label>
-                    <input id="postcode" name="postcode" type="text" pattern="^[0-9]{6}$" title="220 000" placeholder=" " required>
+                    <input id="postcode" name="postcode" type="text" pattern="^[0-9]{6}$" placeholder=" " required>
                     <span class="form__code">pattern="^[0-9]{6}$"</span>
                 </div>
                 <div class="form__row">
@@ -1241,7 +1290,7 @@
 
     <section class="slide">
         <h2>Подсказки</h2>
-        <form class="form form_firefox form_custom-moment" method="post" action="https://echo.htmlacademy.ru">
+        <form class="form form_firefox form_custom-moment" method="post" action="https://echo.htmlacademy.ru" target="_blank">
             <div class="form__row">
                 <label for="quantity">Количество *</label>
                 <input id="quantity" name="quantity" type="number" value="1" min="1" placeholder=" " required>
@@ -1267,8 +1316,8 @@
             <fieldset>
                 <div class="form__row">
                     <label for="postcode">Индекс *</label>
-                    <input id="postcode" name="postcode" type="text" pattern="^[0-9]{6}$" placeholder="220 000" required>
-                    <span class="form__code">placeholder="220 000"</span>
+                    <input id="postcode" name="postcode" type="text" pattern="^[0-9]{6}$" placeholder="220000" required>
+                    <span class="form__code">placeholder="220000"</span>
                 </div>
                 <div class="form__row">
                     <label for="city">Город *</label>
@@ -1300,7 +1349,7 @@
 
     <section class="slide">
         <h2>Сообщения об ошибках</h2>
-        <form class="form form_firefox form_custom-moment" method="post" action="https://echo.htmlacademy.ru">
+        <form class="form form_firefox form_custom-moment" method="post" action="https://echo.htmlacademy.ru" target="_blank">
             <div class="form__row">
                 <label for="quantity">Количество *</label>
                 <input id="quantity" name="quantity" type="number" value="1" min="1" placeholder=" " required>
@@ -1372,7 +1421,6 @@
                 opacity: 0.4;
                 background-color: red;
                 border-color: red;
-
             }
             .form__message {
                 display: none;
@@ -1397,7 +1445,7 @@
             }
         </style>
         <h2>Кастомные сообщения</h2>
-        <form class="form form_firefox form_custom-moment" method="post" action="https://echo.htmlacademy.ru">
+        <form class="form form_firefox form_custom-moment" method="post" id="outer-button" action="https://echo.htmlacademy.ru" target="_blank">
             <div class="form__row">
                 <label for="quantity">Количество *</label>
                 <input id="quantity" name="quantity" type="text" value="1" placeholder=" " pattern="\d{1,}$">
@@ -1438,7 +1486,7 @@
                 </div>
             </fieldset>
         </form>
-        <button type="submit">Заказать</button>
+        <button type="submit" form="outer-button">Заказать</button>
         <footer class="footer">
             <ul>
                 <li></li>
@@ -1512,9 +1560,10 @@
     <section class="slide">
         <h2>Выводы</h2>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li class="next">Есть баги!</li>
+            <li class="next">Не все реализовано в браузерах.</li>
+            <li class="next">Возможна почти полноценная валидация без JS.</li>
+            <li class="next">Детекция конкретной ошибки невозможна без JS.</li>
         </ul>
         <footer class="footer">
             <ul>
